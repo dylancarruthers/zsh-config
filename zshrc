@@ -1,18 +1,11 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/zsh/.oh-my-zsh
+ZSH=$HOME/.zsh/oh-my-zsh
 PATH=~/bin:$PATH
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="steeef"
-
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ssh="sudo ssh"
-alias sql='mysql -hkermit.reivernet.com -udylanc -px8RuU5rVAMvvr5je rss' 
-alias l='ls -hal'
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -41,6 +34,13 @@ if [ -f ~/.zsh_nocorrect ]; then
     alias $COMMAND="nocorrect $COMMAND"
   done < ~/.zsh_nocorrect
 fi
+
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ssh="sudo ssh"
+alias sql='mysql -hkermit.reivernet.com -udylanc -px8RuU5rVAMvvr5je rss' 
+alias l='ls -lah'
 
 # Customize to your needs...
 setopt prompt_subst
