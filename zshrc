@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+ZSH=$HOME/zsh/.oh-my-zsh
 PATH=~/bin:$PATH
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -50,3 +50,11 @@ if [ ${#git} != 0 ]; then
 else
   git=0
 fi
+
+/usr/bin/keychain ~/.ssh/id_dsa ~/.ssh/id_rsa
+
+[ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
+[ -f $HOME/.keychain/$HOSTNAME-sh ] && \
+  . $HOME/.keychain/$HOSTNAME-sh
+[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && \
+  . $HOME/.keychain/$HOSTNAME-sh-gpg
