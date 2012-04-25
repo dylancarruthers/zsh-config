@@ -51,7 +51,14 @@ else
   git=0
 fi
 
-/usr/bin/keychain ~/.ssh/id_dsa ~/.ssh/id_rsa
+KEYCHAIN=`which keychain`
+$KEYCHAIN -q ~/.ssh/id_dsa ~/.ssh/id_rsa
+if [ -f ~/.ssh/github_id_rsa ]; then
+  $KEYCHAIN -q ~/.ssh/github_id_rsa
+fi 
+if [ -f ~/.ssh/git_id_rsa ]; then
+  $KEYCHAIN -q ~/.ssh/git_id_rsa
+fi 
 
 [ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
 [ -f $HOME/.keychain/$HOSTNAME-sh ] && \
