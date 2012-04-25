@@ -58,3 +58,5 @@ fi
   . $HOME/.keychain/$HOSTNAME-sh
 [ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && \
   . $HOME/.keychain/$HOSTNAME-sh-gpg
+
+[ -s "/root/.scm_breeze/scm_breeze.sh" ] && source "/root/.scm_breeze/scm_breeze.sh"
