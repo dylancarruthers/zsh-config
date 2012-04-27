@@ -38,8 +38,6 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ssh="sudo ssh"
-alias sql='mysql -hkermit.reivernet.com -udylanc -px8RuU5rVAMvvr5je rss' 
 alias l='ls -lah'
 
 # Customize to your needs...
@@ -61,6 +59,14 @@ if [ -f ~/.ssh/git_id_rsa ]; then
 fi 
 
 [ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
+
+if [ "$HOSTNAME" = "scooter" ]; then 
+  alias ssh="sudo ssh"
+  alias sql='mysql -hkermit.reivernet.com -udylanc -px8RuU5rVAMvvr5je rss' 
+else 
+  alias sql='mysql -hlocalhost -uroot -phmm'
+fi
+
 [ -f $HOME/.keychain/$HOSTNAME-sh ] && \
   . $HOME/.keychain/$HOSTNAME-sh
 [ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && \
