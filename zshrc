@@ -61,10 +61,9 @@ fi
 [ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
 
 if [ "$HOSTNAME" = "scooter" ]; then 
-  alias ssh="sudo ssh"
   alias sql='mysql -hkermit.reivernet.com -udylanc -px8RuU5rVAMvvr5je rss' 
 else 
-  alias sql='mysql -hlocalhost -uroot -phmm'
+  alias sql='mysql -hlocalhost -uroot -phmm getin2net'
 fi
 
 [ -f $HOME/.keychain/$HOSTNAME-sh ] && \
