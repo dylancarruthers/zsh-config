@@ -65,7 +65,7 @@ fi
 [ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
 
 if [ "$HOSTNAME" = "scooter" ]; then 
-  alias sql='mysql -hkermit.reivernet.com -udylanc -px8RuU5rVAMvvr5je rss' 
+  alias sql='mysql -hkermit.reivernet.com -udylanc rss' 
 else 
   alias sql='mysql -hlocalhost -uroot -phmm getin2net'
 fi
