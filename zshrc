@@ -1,7 +1,8 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.zsh/oh-my-zsh
 PATH=~/bin:$PATH
-if [[ `uname` -eq 'Darwin' ]]; then 
+OSTYPE=`uname`
+if [[ $OSTYPE == 'Darwin' ]]; then 
   PATH=/usr/local/bin:/usr/local/sbin:$PATH
   ZSH_THEME="bira"
 else
