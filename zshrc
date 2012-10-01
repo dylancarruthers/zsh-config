@@ -57,13 +57,11 @@ else
 fi
 
 KEYCHAIN=`which keychain`
-$KEYCHAIN -q ~/.ssh/id_dsa ~/.ssh/id_rsa
-if [ -f ~/.ssh/github_id_rsa ]; then
-  $KEYCHAIN -q ~/.ssh/github_id_rsa
-fi 
-if [ -f ~/.ssh/git_id_rsa ]; then
-  $KEYCHAIN -q ~/.ssh/git_id_rsa
-fi 
+for key in id_dsa id_rsa github_id_rsa git_id_rsa; do
+  if [ -f $key ]; then
+    $KEYCHAIN -q $key;
+  fi;
+done;
 
 [ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
 
