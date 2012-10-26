@@ -58,8 +58,8 @@ fi
 
 KEYCHAIN=`which keychain`
 for key in id_dsa id_rsa github_id_rsa git_id_rsa; do
-  if [ -f $key ]; then
-    $KEYCHAIN -q $key;
+  if [ -f ~/.ssh/$key ]; then
+    $KEYCHAIN -q ~/.ssh/$key;
   fi;
 done;
 
