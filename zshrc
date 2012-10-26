@@ -1,6 +1,6 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.zsh/oh-my-zsh
-PATH=~/bin:$PATH
+PATH=$HOME/bin:$PATH
 OSTYPE=`uname`
 if [[ $OSTYPE == 'Darwin' ]]; then 
   PATH=/usr/local/bin:/usr/local/sbin:$PATH
@@ -9,7 +9,7 @@ else
   ZSH_THEME="steeef"
 fi
 # Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
+# Look in $HOME/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 
@@ -29,22 +29,22 @@ DISABLE_UPDATE_PROMPT="true"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 # COMPLETION_WAITING_DOTS="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Which plugins would you like to load? (plugins can be found in $HOME/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git perl debian ssh-agent syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-if [ -f ~/.zsh_nocorrect ]; then    
+if [ -f $HOME/.zsh_nocorrect ]; then    
   while read -r COMMAND; do
     alias $COMMAND="nocorrect $COMMAND"
-  done < ~/.zsh_nocorrect
+  done < $HOME/.zsh_nocorrect
 fi
 
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# alias zshconfig="mate $HOME/.zshrc"
+# alias ohmyzsh="mate $HOME/.oh-my-zsh"
 alias l='ls -lah'
 
 # Customize to your needs...
@@ -58,8 +58,8 @@ fi
 
 KEYCHAIN=`which keychain`
 for key in id_dsa id_rsa github_id_rsa git_id_rsa; do
-  if [ -f ~/.ssh/$key ]; then
-    $KEYCHAIN -q ~/.ssh/$key;
+  if [ -f $HOME/.ssh/$key ]; then
+    $KEYCHAIN -q $HOME/.ssh/$key;
   fi;
 done;
 
