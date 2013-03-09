@@ -32,14 +32,14 @@ DISABLE_UPDATE_PROMPT="true"
 # Which plugins would you like to load? (plugins can be found in $HOME/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git perl debian ssh-agent syntax-highlighting)
+plugins=(git perl debian ssh-agent syntax-highlighting git-completion)
 
 source $ZSH/oh-my-zsh.sh
 
-if [ -f $HOME/.zsh_nocorrect ]; then    
+if [ -f $HOME/.zsh/no_correct ]; then    
   while read -r COMMAND; do
     alias $COMMAND="nocorrect $COMMAND"
-  done < $HOME/.zsh_nocorrect
+  done < $HOME/.zsh/no_correct
 fi
 
 # Example aliases
