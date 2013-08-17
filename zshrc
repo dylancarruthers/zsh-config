@@ -2,7 +2,10 @@
 ZSH=$HOME/.zsh/oh-my-zsh
 PATH=$HOME/bin:$PATH
 OSTYPE=`uname`
-if [[ $OSTYPE == 'Darwin' ]]; then 
+if [ -f /var/lib/gems/1.8/bin ]; then
+  PATH=/usr/local/bin:/usr/local/sbin:$PATH:/var/lib/gems/1.8/bin
+fi
+if [ "$OSTYPE" = 'Darwin' ]; then 
   PATH=/usr/local/bin:/usr/local/sbin:$PATH
   ZSH_THEME="bira"
 else
@@ -32,7 +35,7 @@ DISABLE_UPDATE_PROMPT="true"
 # Which plugins would you like to load? (plugins can be found in $HOME/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git perl debian ssh-agent syntax-highlighting git-completion)
+plugins=(git perl debian ssh-agent syntax-highlighting git-completion symfony2)
 
 source $ZSH/oh-my-zsh.sh
 
