@@ -71,7 +71,11 @@ done;
 if [ "$HOSTNAME" = "scooter" ]; then 
   alias sql='mysql -hkermit.reivernet.com -udylanc rss' 
 else 
-  alias sql='mysql -hlocalhost -uroot -phmm getin2net'
+  if [ -d /var/lib/mysql/reivernet ]; then
+    alias sql='mysql -hlocalhost -uroot -phmm reivernet'
+  else
+    alias sql='mysql -hlocalhost -uroot -phmm getin2net'
+  fi
 fi
 
 [ -f $HOME/.keychain/$HOSTNAME-sh ] && \
