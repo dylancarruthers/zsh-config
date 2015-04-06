@@ -86,3 +86,6 @@ fi
 [ -s "/root/.scm_breeze/scm_breeze.sh" ] && source "/root/.scm_breeze/scm_breeze.sh"
 
 [ -s "/home/dylanc/.scm_breeze/scm_breeze.sh" ] && source "/home/dylanc/.scm_breeze/scm_breeze.sh"
+
+echo
+echo "Kernel:" $(/bin/uname -r | /usr/bin/awk '{print $1}') "; Userspace: " $(/usr/bin/getconf LONG_BIT) "bit"
