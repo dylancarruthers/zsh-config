@@ -49,7 +49,9 @@ fi
 # alias zshconfig="mate $HOME/.zshrc"
 # alias ohmyzsh="mate $HOME/.oh-my-zsh"
 alias l='ls -lah'
-alias tm="tmux attach|| tmux"
+if [ -x /usr/bin/tmux ]; then
+    alias tm="tmux attach|| tmux"
+fi
 
 # Customize to your needs...
 setopt prompt_subst
