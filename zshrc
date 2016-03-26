@@ -49,6 +49,7 @@ fi
 # alias zshconfig="mate $HOME/.zshrc"
 # alias ohmyzsh="mate $HOME/.oh-my-zsh"
 alias l='ls -lah'
+alias tm="tmux attach|| tmux"
 
 # Customize to your needs...
 setopt prompt_subst
@@ -59,6 +60,7 @@ else
   git=0
 fi
 
+eval `ssh-agent` > /dev/null
 KEYCHAIN=`which keychain`
 for key in id_dsa id_rsa github_id_rsa git_id_rsa; do
   if [ -f $HOME/.ssh/$key ]; then
@@ -83,9 +85,9 @@ fi
 [ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && \
   . $HOME/.keychain/$HOSTNAME-sh-gpg
 
-[ -s "/root/.scm_breeze/scm_breeze.sh" ] && source "/root/.scm_breeze/scm_breeze.sh"
-
-[ -s "/home/dylanc/.scm_breeze/scm_breeze.sh" ] && source "/home/dylanc/.scm_breeze/scm_breeze.sh"
-
 echo
 echo "Kernel:" $(/bin/uname -r | /usr/bin/awk '{print $1}') "; Userspace: " $(/usr/bin/getconf LONG_BIT) "bit"
+
+if [ -f $HOME/.iterm2_shell_integration.zsh ]; then
+    source $HOME/.iterm2_shell_integration.zsh
+fi
