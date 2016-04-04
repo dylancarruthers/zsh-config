@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.zsh/oh-my-zsh
 PATH=$HOME/bin:$PATH
-OSTYPE=`uname`
+OSTYPE=$(env uname)
 if [ -f /var/lib/gems/1.8/bin ]; then
   PATH=/usr/local/bin:/usr/local/sbin:$PATH:/var/lib/gems/1.8/bin
 fi
@@ -70,7 +70,7 @@ for key in id_dsa id_rsa github_id_rsa git_id_rsa; do
   fi;
 done;
 
-[ -z "$HOSTNAME" ] && HOSTNAME=`uname -n`
+[ -z "$HOSTNAME" ] && HOSTNAME=`env uname -n`
 
 if [ "$HOSTNAME" = "scooter" ]; then 
   alias sql='mysql -hkermit.reivernet.com -udylanc rss' 
@@ -88,7 +88,7 @@ fi
   . $HOME/.keychain/$HOSTNAME-sh-gpg
 
 echo
-echo "Kernel:" $(/bin/uname -r | /usr/bin/awk '{print $1}') "; Userspace: " $(/usr/bin/getconf LONG_BIT) "bit"
+echo "Kernel:" $(env uname -r | /usr/bin/awk '{print $1}') "; Userspace: " $(/usr/bin/getconf LONG_BIT) "bit"
 
 if [ -f $HOME/.iterm2_shell_integration.zsh ]; then
     source $HOME/.iterm2_shell_integration.zsh
