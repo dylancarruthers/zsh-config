@@ -49,9 +49,11 @@ fi
 # alias zshconfig="mate $HOME/.zshrc"
 # alias ohmyzsh="mate $HOME/.oh-my-zsh"
 alias l='ls -lah'
-if [ -x /usr/bin/tmux ]; then
-    alias tm="tmux attach|| tmux"
+TMUX=`which tmux`
+if [ -x $TMUX ]; then
+    alias tm="$TMUX attach|| $TMUX"
 fi
+
 
 # Customize to your needs...
 setopt prompt_subst
@@ -62,7 +64,18 @@ else
   git=0
 fi
 
-eval `ssh-agent` > /dev/null
+/usr/bin/ssh-add -l &>/dev/null
+if [ "$?" = 2 ]; then
+    test -r ~/.ssh-agent && \
+        eval "$(<~/.ssh-agent)" >/dev/null
+
+    /usr/bin/ssh-add -l &>/dev/null
+    if [ "$?" = 2 ]; then
+        (umask 066; /usr/bin/ssh-agent > ~/.ssh-agent)
+        eval "$(<~/.ssh-agent)" >/dev/null
+        /usr/bin/ssh-add
+    fi
+fi
 KEYCHAIN=`which keychain`
 for key in id_dsa id_rsa github_id_rsa git_id_rsa; do
   if [ -f $HOME/.ssh/$key ]; then
