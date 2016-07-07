@@ -106,3 +106,31 @@ echo "Kernel:" $(env uname -r | /usr/bin/awk '{print $1}') "; Userspace: " $(/us
 if [ -f $HOME/.iterm2_shell_integration.zsh ]; then
     source $HOME/.iterm2_shell_integration.zsh
 fi
+
+# Reivernet scripts
+if [ -r /var/lib/mysql/reivernet ]; then
+  SESSION_TYPE="console"
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    SESSION_TYPE="remote/ssh"
+  else
+    case $(ps -o comm= -p $PPID) in
+      sshd|*/sshd) SESSION_TYPE=remote/ssh;;
+    esac
+  fi
+
+  if [ "$SESSION_TYPE" = "remote/ssh" ]; then
+    MESSAGE=""
+
+    [ ! -x /usr/sbin/zabbix_agentd ] && \
+      MESSAGE="$MESSAGE\n - INFO: Zabbix is not installed, this server will not be monitored for load etc"
+
+    [ ! -x /usr/bin/salt-minion ] && \
+      MESSAGE="$MESSAGE\n - INFO: Salt Minion is not installed, this server will miss many important updates"
+
+    [ ! -x /sbin/ipset ] && \
+      MESSAGE="$MESSAGE\n - WARNING! You are using an old firewall that may no longer be secure. Install ipset as soon as possible"
+
+    [ -z "$MESSAGE" ] || \
+      echo "\nPlease report the below to #software_support on Slack for assistance:$MESSAGE"
+  fi
+fi
