@@ -39,6 +39,8 @@ plugins=(git perl debian ssh-agent syntax-highlighting git-completion symfony2)
 
 source $ZSH/oh-my-zsh.sh
 
+export EDITOR='vim'
+
 if [ -f $HOME/.zsh/no_correct ]; then    
   while read -r COMMAND; do
     alias $COMMAND="nocorrect $COMMAND"
@@ -107,6 +109,10 @@ if [ -f $HOME/.iterm2_shell_integration.zsh ]; then
     source $HOME/.iterm2_shell_integration.zsh
 fi
 
+if [ -f $HOME/.zsh/tmuxinator.zsh ]; then
+    source ~/.zsh/tmuxinator.zsh
+fi
+
 # Reivernet scripts
 if [ -r /var/lib/mysql/reivernet ]; then
     SESSION_TYPE="console"
@@ -124,13 +130,13 @@ if [ -r /var/lib/mysql/reivernet ]; then
         [ ! -x /usr/sbin/zabbix_agentd ] && \
             MESSAGE="$MESSAGE\n - INFO: Zabbix is not installed, this server will not be monitored for load etc\n   To install run /reivernet/scripts/install_zabbix_agent"
 
-        [ ! -x /usr/bin/salt-minion ] && \
+        [ ! -x /etc/init.d/salt-minion ] && \
             MESSAGE="$MESSAGE\n - INFO: Salt Minion is not installed, this server will miss many important updates\n   To install run /reivernet/scripts/install_salt.sh"
 
         [ ! -x /sbin/ipset ] && \
             MESSAGE="$MESSAGE\n - WARNING! You are using an old firewall that may no longer be secure.\n   You must run /reivernet/scripts/install_ipset as soon as possible"
 
         [ -z "$MESSAGE" ] || \
-            echo "\nPlease report the below to #software_support on Slack for assistance:$MESSAGE"
+            echo "\nSee #software_support on Slack for assistance:$MESSAGE"
     fi
 fi
