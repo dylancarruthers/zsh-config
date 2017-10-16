@@ -35,7 +35,7 @@ DISABLE_UPDATE_PROMPT="true"
 # Which plugins would you like to load? (plugins can be found in $HOME/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git perl debian ssh-agent syntax-highlighting git-completion symfony2)
+plugins=(git perl debian ssh-agent syntax-highlighting git-completion symfony2 tmux tab-completion docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -47,9 +47,6 @@ if [ -f $HOME/.zsh/no_correct ]; then
   done < $HOME/.zsh/no_correct
 fi
 
-# Example aliases
-# alias zshconfig="mate $HOME/.zshrc"
-# alias ohmyzsh="mate $HOME/.oh-my-zsh"
 alias l='ls -lah'
 TMUX=`which tmux`
 if [ -x $TMUX ]; then
@@ -84,6 +81,7 @@ for key in id_dsa id_rsa github_id_rsa git_id_rsa; do
     $KEYCHAIN -q $HOME/.ssh/$key;
   fi;
 done;
+$KEYCHAIN -q
 
 [ -z "$HOSTNAME" ] && HOSTNAME=`env uname -n`
 
