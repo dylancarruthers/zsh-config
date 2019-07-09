@@ -39,9 +39,9 @@ alias l='ls -lah'
 TMUX="/usr/local/bin/tmux"
 if [ -x $TMUX ]; then
     alias tm="$TMUX attach|| $TMUX"
-    plugins=(git perl debian ssh-agent syntax-highlighting git-completion symfony2 tmux tab-completion docker)
+    plugins=(git perl debian ssh-agent symfony2 tmux docker)
 else
-    plugins=(git perl debian ssh-agent syntax-highlighting git-completion symfony2 tab-completion docker)
+    plugins=(git perl debian ssh-agent symfony2 docker)
 fi
 
 source $ZSH/oh-my-zsh.sh
