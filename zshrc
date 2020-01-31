@@ -36,13 +36,15 @@ DISABLE_UPDATE_PROMPT="true"
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 alias l='ls -lah'
-TMUX="/usr/local/bin/tmux"
+TMUX="/usr/bin/tmux"
 if [ -x $TMUX ]; then
     alias tm="$TMUX attach|| $TMUX"
-    plugins=(git perl debian ssh-agent symfony2 tmux docker)
+    plugins=(git perl debian ssh-agent tmux)
 else
-    plugins=(git perl debian ssh-agent symfony2 docker)
+    plugins=(git perl debian ssh-agent)
 fi
+
+[ -x /usr/bin/python3 ] && alias python=/usr/bin/python3
 
 source $ZSH/oh-my-zsh.sh
 
@@ -136,5 +138,7 @@ if [ -r /var/lib/mysql/reivernet ]; then
 
         [ -z "$MESSAGE" ] || \
             echo "\nSee #software_support on Slack for assistance:$MESSAGE"
+
+        cat /var/run/reboot-required
     fi
 fi
