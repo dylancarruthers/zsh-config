@@ -5,12 +5,13 @@ OSTYPE=$(env uname)
 if [ -f /var/lib/gems/1.8/bin ]; then
   PATH=/usr/local/bin:/usr/local/sbin:$PATH:/var/lib/gems/1.8/bin
 fi
-if [ "$OSTYPE" = 'Darwin' ]; then 
-  PATH=/usr/local/bin:/usr/local/sbin:$PATH
-  ZSH_THEME="bira"
-else
-  ZSH_THEME="steeef"
+
+if [[ $OSTYPE == darwin* ]]; then
+    alias flush='dscacheutil -flushcache'
 fi
+
+ZSH_THEME="steeef"
+
 # Set name of the theme to load.
 # Look in $HOME/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -36,15 +37,14 @@ DISABLE_UPDATE_PROMPT="true"
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 alias l='ls -lah'
+alias sql='mysql'
 TMUX="/usr/bin/tmux"
 if [ -x $TMUX ]; then
     alias tm="$TMUX attach|| $TMUX"
-    plugins=(git perl debian ssh-agent tmux)
+    plugins=(git perl debian ssh-agent symfony2 tmux docker)
 else
-    plugins=(git perl debian ssh-agent)
+    plugins=(git perl debian ssh-agent symfony2 docker)
 fi
-
-[ -x /usr/bin/python3 ] && alias python=/usr/bin/python3
 
 source $ZSH/oh-my-zsh.sh
 
@@ -77,25 +77,19 @@ if [ "$?" = 2 ]; then
         /usr/bin/ssh-add
     fi
 fi
+
 KEYCHAIN=`which keychain`
-for key in id_dsa id_rsa github_id_rsa git_id_rsa; do
-  if [ -f $HOME/.ssh/$key ]; then
-    $KEYCHAIN -q $HOME/.ssh/$key;
-  fi;
-done;
-$KEYCHAIN -q
+if [ ! -z "$KEYCHAIN" ]; then
+  for key in id_dsa id_rsa github_id_rsa git_id_rsa; do
+    if [ -f $HOME/.ssh/$key ]; then
+      $KEYCHAIN -q $HOME/.ssh/$key;
+    fi;
+  done;
+  $KEYCHAIN -q
+fi
 
 [ -z "$HOSTNAME" ] && HOSTNAME=`env uname -n`
 
-if [ "$HOSTNAME" = "scooter" ]; then 
-  alias sql='mysql -hkermit.reivernet.com -udylanc rss' 
-else 
-  if [ -d /var/lib/mysql/reivernet ]; then
-    alias sql='mysql -hlocalhost -uroot -phmm reivernet'
-  else
-    alias sql='mysql -hlocalhost -uroot -phmm getin2net'
-  fi
-fi
 
 [ -f $HOME/.keychain/$HOSTNAME-sh ] && \
   . $HOME/.keychain/$HOSTNAME-sh
@@ -105,40 +99,9 @@ fi
 echo
 echo "Kernel:" $(env uname -r | /usr/bin/awk '{print $1}') "; Userspace: " $(/usr/bin/getconf LONG_BIT) "bit"
 
-if [ -f $HOME/.iterm2_shell_integration.zsh ]; then
-    source $HOME/.iterm2_shell_integration.zsh
-fi
-
 if [ -f $HOME/.zsh/tmuxinator.zsh ]; then
     source ~/.zsh/tmuxinator.zsh
 fi
 
-# Reivernet scripts
-if [ -r /var/lib/mysql/reivernet ]; then
-    SESSION_TYPE="console"
-    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-        SESSION_TYPE="remote/ssh"
-    else
-        case $(ps -o comm= -p $PPID) in
-            sshd|*/sshd) SESSION_TYPE=remote/ssh;;
-        esac
-    fi
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-    if [ "$SESSION_TYPE" = "remote/ssh" ]; then
-        MESSAGE=""
-
-        [ ! -x /usr/sbin/zabbix_agentd ] && \
-            MESSAGE="$MESSAGE\n - INFO: Zabbix is not installed, this server will not be monitored for load etc\n   To install run /reivernet/scripts/install_zabbix_agent"
-
-        [ ! -x /etc/init.d/salt-minion ] && \
-            MESSAGE="$MESSAGE\n - INFO: Salt Minion is not installed, this server will miss many important updates\n   To install run /reivernet/scripts/install_salt.sh"
-
-        [ ! -x /sbin/ipset ] && \
-            MESSAGE="$MESSAGE\n - WARNING! You are using an old firewall that may no longer be secure.\n   You must run /reivernet/scripts/install_ipset as soon as possible"
-
-        [ -z "$MESSAGE" ] || \
-            echo "\nSee #software_support on Slack for assistance:$MESSAGE"
-
-        cat /var/run/reboot-required
-    fi
-fi
